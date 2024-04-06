@@ -27,14 +27,14 @@ async def read_item(item_name: str):
     try:
         # Dict
         item = items[drugName]
-        new_data = {item_name: {"topic" : [], "tweets": []}}
+        new_data = {"topic" : [], "tweets": []}
         for key, value in item.items():
             name = value["name"]
             count = value["count"]
             tweet = list(value["tweet"].values())
             if(key != "topic_number_-1"):
-                new_data[item_name]["topic"].append({"name": name, "count": count})
-                new_data[item_name]["tweets"].append({"topic_name": name, "tweets": tweet})
+                new_data["topic"].append({"name": name, "count": count})
+                new_data["tweets"].append({"topic_name": name, "tweets": tweet})
     except KeyError:
         raise HTTPException(status_code=404, detail=f"{drugName} not found")
     return new_data

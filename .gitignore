@@ -8,3 +8,4 @@ bertopic_model_Levonorgestrel.pkl
 bertopic_model_Nexplanon.pkl
 .env
 new.py
+__pycache__/main.cpython-312.pyc

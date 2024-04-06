@@ -1,0 +1,10 @@
+pharma_shit/drugsComTest_raw.csv
+pharma_shit/drugsComTrain_raw.csv
+pharma_shit/PaparsData2Betracimab.txt
+pharma_shit/Pappars Data Download 1.txt
+pharma_shit/Zuranolone.csv
+bertopic_model_Etonogestrel.pkl
+bertopic_model_Levonorgestrel.pkl
+bertopic_model_Nexplanon.pkl
+.env
+new.py

@@ -7,6 +7,16 @@ password = os.getenv("PASS")
 
 app = FastAPI()
 
+def remove_indexing(text):
+    # Find the index of the first space
+    index = text.find('_')
+    # Check if there's an underscore and if the text before it is a number
+    if index != -1 and text[:index].isdigit():
+        # If so, return the text after the underscore
+        return text[index+1:]
+    # Otherwise, return the original text
+    return text
+
 # Connect to MongoDB
 client = MongoClient(f'mongodb+srv://retr0991:{password}@cluster0.rtkjeyb.mongodb.net/')
 # client = MongoClient('mongodb://localhost:27017/')
@@ -29,7 +39,7 @@ async def read_item(item_name: str):
         item = items[drugName]
         new_data = {"topic" : [], "tweets": []}
         for key, value in item.items():
-            name = value["name"]
+            name = remove_indexing(value["name"])
             count = value["count"]
             tweet = list(value["tweet"].values())
             if(key != "topic_number_-1"):

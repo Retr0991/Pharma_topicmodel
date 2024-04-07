@@ -22,6 +22,7 @@ client = MongoClient(f'mongodb+srv://retr0991:{password}@cluster0.rtkjeyb.mongod
 # client = MongoClient('mongodb://localhost:27017/')
 db = client['clinicalsentix']
 collection = db['test']
+collection2 = db['timeline']
 
 # Endpoint to get all items
 @app.get("/items/")
@@ -37,14 +38,15 @@ async def read_item(item_name: str):
     try:
         # Dict
         item = items[drugName]
-        new_data = {"topic" : [], "tweets": []}
+        new_data = {"topic" : []}
         for key, value in item.items():
             name = remove_indexing(value["name"])
             count = value["count"]
             tweet = list(value["tweet"].values())
             if(key != "topic_number_-1"):
                 new_data["topic"].append({"name": name, "count": count})
-                new_data["tweets"].append({"topic_name": name, "tweets": tweet})
+        new_data["tweets"] = list(collection2.find({"drugName": drugName}))[0]["Tweets"]
+        new_data["timeline"] = list(collection2.find({"drugName": drugName}))[0]["Timeline"]
     except KeyError:
         raise HTTPException(status_code=404, detail=f"{drugName} not found")
     return new_data

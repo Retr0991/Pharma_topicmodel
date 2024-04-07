@@ -43,6 +43,8 @@ data_path = r"C:\Users\Retr0991\ML stuf\Phama_topicmodel\pharma_shit\drugsComTra
 
 
 df = pd.read_csv(data_path)
+df.dropna(inplace=True)
+df.drop(columns=['uniqueID'], inplace=True)
 li = df['drugName'].to_list()
 
 d = {}
@@ -60,7 +62,7 @@ for i in range(40):
 
 drug_list = [x[0] for x in li]
 # top 40 drugs only
-drug_list = drug_list[9:10]
+drug_list = drug_list[0:40]
 data = {}
 i = 1
 for drug in drug_list:

@@ -64,12 +64,12 @@ async def read_item(item_name: str):
     return new_data
 
 
-# @app.get("/items/{item_name}/rating")
-# async def read_rating(item_name: str):
-#     drugName = item_name
-#     try:
-#         new_data = {}
-#         # new_data["rating"] = list(collection2.find({"drugName": drugName}))
-#     except KeyError:
-#         raise HTTPException(status_code=404, detail=f"{drugName} not found")
-#     return list(collection2.find({"drugName": drugName})) 
+@app.get("/items/{item_name}/rating")
+async def read_rating(item_name: str):
+    drugName = item_name
+    try:
+        new_data = {}
+        new_data["rating"] = list(rating.find({"drugName": drugName}))[0]["rating"]
+    except KeyError:
+        raise HTTPException(status_code=404, detail=f"{drugName} not found")
+    return new_data

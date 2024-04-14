@@ -12,3 +12,8 @@ __pycache__/main.cpython-312.pyc
 __pycache__/main_again.cpython-312.pyc
 timeline_tweet.json
 mongoimport.log
+.vscode/settings.json
+data_3d.json
+data_final.json
+data.csv
+timeline.ipynb

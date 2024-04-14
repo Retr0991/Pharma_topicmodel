@@ -70,6 +70,9 @@ async def read_rating(item_name: str):
     try:
         new_data = {}
         new_data["rating"] = list(rating.find({"drugName": drugName}))[0]["rating"]
+        new_data["pos"] = list(rating.find({"drugName": drugName}))[0]["positive"]
+        new_data["neu"] = list(rating.find({"drugName": drugName}))[0]["neutral"]
+        new_data["neg"] = list(rating.find({"drugName": drugName}))[0]["negative"]
     except KeyError:
         raise HTTPException(status_code=404, detail=f"{drugName} not found")
     return new_data

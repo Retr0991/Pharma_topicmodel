@@ -61,3 +61,14 @@ async def read_item(item_name: str):
     except KeyError:
         raise HTTPException(status_code=404, detail=f"{drugName} not found")
     return json.dumps(new_data)
+
+# Endpoint to get rating data
+@app.get("/items/{item_name}/rating")
+async def read_rating(item_name: str):
+    drugName = item_name
+    try:
+        new_data = {}
+        new_data["rating"] = list(rating.find({"drugName": drugName}))[0]["rating"]
+    except KeyError:
+        raise HTTPException(status_code=404, detail=f"{drugName} not found")
+    return new_data

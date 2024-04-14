@@ -39,7 +39,7 @@ collection2 = db['timeline']
 @app.get("/items/")
 async def read_items():
     items = list(collection.find_one({}, {"_id": 0}))  # Exclude _id field from response
-    return json.dumps(items)
+    return items
 
 # Endpoint to get a single item by ID
 @app.get("/items/{item_name}")    
@@ -60,4 +60,4 @@ async def read_item(item_name: str):
         new_data["timeline"] = list(collection2.find({"drugName": drugName}))[0]["Timeline"]
     except KeyError:
         raise HTTPException(status_code=404, detail=f"{drugName} not found")
-    return json.dumps(new_data)
+    return new_data

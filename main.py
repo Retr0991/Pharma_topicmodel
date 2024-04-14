@@ -12,7 +12,7 @@ app = FastAPI()
 # Allow specific origins
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost", "http://localhost:8080"],
+    allow_origins=["http://localhost:3000", "https://clinical-sentix.onrender.com"],
     allow_credentials=True,
     allow_methods=["GET", "POST", "PUT", "DELETE"],
     allow_headers=["*"],

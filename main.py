@@ -33,7 +33,8 @@ client = MongoClient(f'mongodb+srv://retr0991:{password}@cluster0.rtkjeyb.mongod
 # client = MongoClient('mongodb://localhost:27017/')
 db = client['clinicalsentix']
 collection = db['test']
-collection2 = db['timeline']
+timeline = db['timeline']
+rating = db['rating']
 
 # Endpoint to get all items
 @app.get("/items/")
@@ -56,8 +57,8 @@ async def read_item(item_name: str):
             tweet = list(value["tweet"].values())
             if(key != "topic_number_-1"):
                 new_data["topic"].append({"name": name, "count": count})
-        new_data["tweets"] = list(collection2.find({"drugName": drugName}))[0]["Tweets"]
-        new_data["timeline"] = list(collection2.find({"drugName": drugName}))[0]["Timeline"]
+        new_data["tweets"] = list(timeline.find({"drugName": drugName}))[0]["Tweets"]
+        new_data["timeline"] = list(timeline.find({"drugName": drugName}))[0]["Timeline"]
     except KeyError:
         raise HTTPException(status_code=404, detail=f"{drugName} not found")
     return json.dumps(new_data)
@@ -69,6 +70,9 @@ async def read_rating(item_name: str):
     try:
         new_data = {}
         new_data["rating"] = list(rating.find({"drugName": drugName}))[0]["rating"]
+        new_data["pos"] = list(rating.find({"drugName": drugName}))[0]["positive"]
+        new_data["neu"] = list(rating.find({"drugName": drugName}))[0]["neutral"]
+        new_data["neg"] = list(rating.find({"drugName": drugName}))[0]["negative"]
     except KeyError:
         raise HTTPException(status_code=404, detail=f"{drugName} not found")
     return new_data

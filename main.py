@@ -12,7 +12,7 @@ app = FastAPI()
 # Allow specific origins
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "https://clinical-sentix.onrender.com"],
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["GET", "POST", "PUT", "DELETE"],
     allow_headers=["*"],
@@ -34,6 +34,7 @@ client = MongoClient(f'mongodb+srv://retr0991:{password}@cluster0.rtkjeyb.mongod
 db = client['clinicalsentix']
 collection = db['test']
 collection2 = db['timeline']
+rating = db['rating']
 
 # Endpoint to get all items
 @app.get("/items/")
@@ -61,3 +62,14 @@ async def read_item(item_name: str):
     except KeyError:
         raise HTTPException(status_code=404, detail=f"{drugName} not found")
     return new_data
+
+
+# @app.get("/items/{item_name}/rating")
+# async def read_rating(item_name: str):
+#     drugName = item_name
+#     try:
+#         new_data = {}
+#         # new_data["rating"] = list(collection2.find({"drugName": drugName}))
+#     except KeyError:
+#         raise HTTPException(status_code=404, detail=f"{drugName} not found")
+#     return list(collection2.find({"drugName": drugName})) 
